@@ -5,27 +5,28 @@ on:
 
 jobs:
   build:
-    name: Build APK
-    runs-on: ubuntu-latest
+    runs-on: windows-latest   # ← 用 Windows 环境！你的 gradlew 才能运行
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+    - name: Checkout source
+      uses: actions/checkout@v4
 
-      - name: Set up JDK
-        uses: actions/setup-java@v4
-        with:
-          java-version: 17
-          distribution: temurin
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17'
 
-      - name: Set execute permission for gradlew
-        run: chmod +x ./gradlew
+    - name: Grant execute permissions to gradlew
+      run: |
+        git update-index --chmod=+x gradlew
 
-      - name: Build APK
-        run: ./gradlew assembleDebug --stacktrace
+    - name: Build Debug APK
+      run: .\gradlew.bat assembleDebug --stacktrace
 
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-apk
-          path: app/build/outputs/apk/debug/*.apk
+    - name: Upload APK Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-debug
+        path: |
+          **/build/outputs/**/*.apk
