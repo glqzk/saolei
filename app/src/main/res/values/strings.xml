@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">扫雷</string>
+    <string name="restart">重新开始</string>
+    <string name="win_message">恭喜你赢了！</string>
+    <string name="lose_message">很遗憾，你输了！</string>
+    <string name="confirm_restart">确定要重新开始吗？</string>
+</resources>
